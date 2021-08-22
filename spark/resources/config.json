@@ -1,0 +1,24 @@
+{
+  "spi": {
+    "matches_latest": {
+      "url": "https://projects.fivethirtyeight.com/soccer-api/club",
+      "file": "spi_matches_latest.csv",
+      "name": "spi_matches_latest"
+    },
+    "global_rankings": {
+      "url": "https://projects.fivethirtyeight.com/soccer-api/club",
+      "file": "spi_global_rankings.csv",
+      "name": "spi_global_rankings"
+    },
+    "global_rankings_intl": {
+      "url": "https://projects.fivethirtyeight.com/soccer-api/international",
+      "file": "spi_global_rankings_intl.csv",
+      "name": "spi_global_rankings_intl"
+    }
+  },
+  "spark": {
+    "master": "local[*]",
+    "app-name": "spi-data-write",
+    "output-prefix": "/tmp"
+  }
+}
