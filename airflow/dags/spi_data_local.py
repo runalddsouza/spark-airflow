@@ -1,14 +1,15 @@
 from airflow import DAG
-from airflow.operators.dummy_operator import DummyOperator
-from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
+from airflow.operators.dummy import DummyOperator
+from airflow.providers.apache.spark.operators.spark_submit import SparkSubmitOperator
 from datetime import datetime, timedelta
 
 ###############################################
 # Parameters
 ###############################################
-spark_master = "local[*]"
+spark_master = "spark://localhost:7077"
 spark_app_name = "spi-data-write"
-
+spark_main = "/usr/local/spark/app/main.py"
+spark_standalone_conn_id = "spark_standalone"
 now = datetime.now()
 
 default_args = {
@@ -23,7 +24,7 @@ default_args = {
 }
 
 dag = DAG(
-    "spi_data",
+    "spi_data_local",
     default_args=default_args,
     schedule_interval=timedelta(1)
 )
@@ -31,13 +32,11 @@ dag = DAG(
 start = DummyOperator(task_id="start", dag=dag)
 
 spark_job = SparkSubmitOperator(
+    conn_id=spark_standalone_conn_id,
     task_id="spi_write_job",
-    application="spark/main.py",
+    application=spark_main,
     name=spark_app_name,
-    conn_id="spark_default",
-    verbose=1,
-    conf={"spark.master":spark_master},
-    application_args=[file_path],
+    verbose=True,
     dag=dag)
 
 end = DummyOperator(task_id="end", dag=dag)
