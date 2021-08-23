@@ -6,8 +6,7 @@ from datetime import datetime, timedelta
 ###############################################
 # Parameters
 ###############################################
-spark_master = "spark://localhost:7077"
-spark_app_name = "spi-data-write"
+spark_app_name = "spi_write_to_hdfs"
 spark_main = "/usr/local/spark/app/main.py"
 spark_standalone_conn_id = "spark_standalone"
 now = datetime.now()
@@ -33,10 +32,11 @@ start = DummyOperator(task_id="start", dag=dag)
 
 spark_job = SparkSubmitOperator(
     conn_id=spark_standalone_conn_id,
-    task_id="spi_write_job",
+    task_id="spark_to_hdfs",
     application=spark_main,
     name=spark_app_name,
     verbose=True,
+    conf={"spark.hadoop.fs.defaultFS": "hdfs://namenode:8020"},
     dag=dag)
 
 end = DummyOperator(task_id="end", dag=dag)
