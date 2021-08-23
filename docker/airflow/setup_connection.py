@@ -3,7 +3,7 @@ from airflow.models import Connection
 
 if __name__ == "__main__":
     spark_standalone_conn_id = "spark_standalone"
-    spark_master = "spark://localhost:7077"
+    spark_master = "spark://spark-master:7077"
 
     session = settings.Session
     conn = Connection(conn_id=spark_standalone_conn_id, conn_type="spark", host=spark_master)
