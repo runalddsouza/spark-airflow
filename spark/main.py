@@ -1,10 +1,10 @@
 import json
 from pathlib import Path
 
+from write_job import WriteJob
 from spi_club_rankings import SpiClubRankWriteJob
 from spi_club_ratings import SpiRatingsWriteJob
 from spi_intl_rankings import SpiIntlRankWriteJob
-from write_job import WriteJob
 
 
 def run_job(job: WriteJob):
