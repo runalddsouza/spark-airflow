@@ -1,6 +1,12 @@
 # spark-airflow
 
-Simple Docker setup for Airflow with Spark and Hadoop 
+The pipeline submits a spark application to a standalone spark cluster which creates an output on HDFS
+
+### Docker Setup
+- Airflow
+- Postgres
+- Spark Standalone: Master with 2 worker nodes
+- Hadoop: NameNode and DataNode
 
 | App| Version |
 | --- | --- |
@@ -8,15 +14,7 @@ Simple Docker setup for Airflow with Spark and Hadoop
 | Spark/PySpark | 3.1.1 |
 | Hadoop | 3.2.1 |
 
-The pipeline submits a spark application to a standalone spark cluster which creates an output on HDFS
-
-<b>Docker:</b>
-- Airflow
-- Hadoop: NameNode and DataNode
-- Spark Standalone: Master with 2 worker nodes
-- Postgres
-
-<b>Steps to run:</b>
+### Steps:
 - Clone repository
 - Run: `cd docker`
 - Start services: `docker-compose up`
@@ -24,7 +22,7 @@ The pipeline submits a spark application to a standalone spark cluster which cre
   - user: airflow
   - password: airflow
 
-Access WebUI for:
+### WebUI:
 - Namenode: http://localhost:9870
 - Spark Standalone: http://localhost:4040
 
